@@ -3,7 +3,7 @@
 One DHCP server hands out IP addresses to two separate networks connected by two routers. The server serves its own network directly, and the far router forwards the other network's DHCP requests to it with `ip helper-address` (DHCP relay). Built in SwitchLab.
 
 ```mermaid
-flowchart TB
+flowchart LR
     subgraph WEST["West · 192.168.60.0/24 · VLAN 60"]
         direction TB
         RA["<b>Router A</b><br/>g0/0 10.0.0.1<br/>g0/1 192.168.60.1<br/>ip helper-address 192.168.50.2"]
@@ -21,7 +21,7 @@ flowchart TB
         SWE --- PCE
         SWE --- SRV
     end
-    RA ---|"10.0.0.0/24"| RB
+    WEST ---|"Router A g0/0 to Router B g0/0<br/>10.0.0.0/24"| EAST
 ```
 
 ## What this lab covers
