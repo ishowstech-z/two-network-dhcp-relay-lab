@@ -1,0 +1,34 @@
+! Every port on both switches is an access port.
+! There is no cable between the switches, so no trunks are used.
+!
+! ---------- East switch (VLAN 50) ----------
+! g0/1-g0/3 = east PCs, g0/7 = SRV2, g0/8 = Router B
+!
+vlan 50
+!
+interface GigabitEthernet0/1
+ switchport mode access
+ switchport access vlan 50
+interface GigabitEthernet0/2
+ switchport mode access
+ switchport access vlan 50
+interface GigabitEthernet0/3
+ switchport mode access
+ switchport access vlan 50
+interface GigabitEthernet0/7
+ switchport mode access
+ switchport access vlan 50
+interface GigabitEthernet0/8
+ switchport mode access
+ switchport access vlan 50
+!
+! ---------- West switch (VLAN 60) ----------
+! Repeat for each west PC port and the port to Router A.
+!
+vlan 60
+!
+interface GigabitEthernet0/X
+ switchport mode access
+ switchport access vlan 60
+!
+end
