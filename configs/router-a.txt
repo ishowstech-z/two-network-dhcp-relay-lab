@@ -1,0 +1,20 @@
+! Router A (west side, 192.168.60.0/24)
+! Relays the west side's DHCP requests to SRV2 on the east side.
+!
+hostname a
+!
+interface GigabitEthernet0/0
+ description Link to Router B
+ ip address 10.0.0.1 255.255.255.0
+ no shutdown
+!
+interface GigabitEthernet0/1
+ description West LAN gateway
+ ip address 192.168.60.1 255.255.255.0
+ ip helper-address 192.168.50.2
+ no shutdown
+!
+! To reach the east LAN, hand traffic to Router B
+ip route 192.168.50.0 255.255.255.0 10.0.0.2
+!
+end
