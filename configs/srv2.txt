@@ -1,0 +1,30 @@
+! SRV2 - DHCP server for both networks (Cisco IOS)
+!
+hostname SRV2
+!
+interface GigabitEthernet0/0
+ ip address 192.168.50.2 255.255.255.0
+ no shutdown
+!
+! IOS ignores ip default-gateway on a device that routes.
+! The default route below is what actually lets SRV2 reply to the west side.
+ip default-gateway 192.168.50.1
+ip route 0.0.0.0 0.0.0.0 192.168.50.1
+!
+! Keep .1-.20 on each network for routers and servers
+ip dhcp excluded-address 192.168.50.1 192.168.50.20
+ip dhcp excluded-address 192.168.60.1 192.168.60.20
+!
+! East network, served directly
+ip dhcp pool LAN
+ network 192.168.50.0 255.255.255.0
+ default-router 192.168.50.1
+ dns-server 1.1.1.1
+!
+! West network, served through Router A's relay
+! (pool names are only labels)
+ip dhcp pool east
+ network 192.168.60.0 255.255.255.0
+ default-router 192.168.60.1
+!
+end
